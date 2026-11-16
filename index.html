@@ -1,0 +1,509 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовое портфолио — навыки и кейсы</title>
+    <!-- Подключаем шрифт Inter для современного вида -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        /* ---------- БАЗОВЫЕ СТИЛИ ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc; /* светло-серый фон */
+            color: #1e293b;
+            line-height: 1.5;
+            padding: 2rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .portfolio {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* ---------- ЗАГОЛОВОК С ГРАДИЕНТОМ И ПРОЗРАЧНОСТЬЮ ---------- */
+        .gradient-header {
+            margin-bottom: 3rem;
+            text-align: left;
+            position: relative;
+        }
+
+        .gradient-header h1 {
+            font-size: clamp(2.2rem, 8vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            /* Градиентный текст */
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent; /* прозрачный текст, виден градиент */
+            /* Дополнительный эффект прозрачности для глубины */
+            opacity: 0.95;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(59, 130, 246, 0.15); /* мягкое свечение */
+        }
+
+        .gradient-header .subhead {
+            font-size: 1.1rem;
+            color: #475569;
+            font-weight: 400;
+            max-width: 700px;
+            border-left: 4px solid #8b5cf6;
+            padding-left: 1.2rem;
+            background: rgba(139, 92, 246, 0.04);
+            border-radius: 0 12px 12px 0;
+            padding: 0.8rem 1.2rem;
+        }
+
+        /* ---------- СЕТКА НАВЫКОВ (КАРТОЧКИ) ---------- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .skill-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            padding: 1.8rem 1.5rem;
+            box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+            border: 1px solid #eef2f6;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: default;
+        }
+
+        /* Анимация при наведении: подъём, тень, подсветка */
+        .skill-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 36px -12px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.15);
+            border-color: #b3c9f0;
+        }
+
+        /* Акцентная полоска слева при наведении */
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+
+        .skill-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 1rem;
+            display: inline-block;
+            opacity: 0.8;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: #0f172a;
+            margin-bottom: 0.65rem;
+            line-height: 1.3;
+        }
+
+        .skill-card p {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.5;
+            flex-grow: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        /* ---------- БЛОКИ КЕЙСОВ ---------- */
+        .cases-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #0f172a;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #cbd5e1, transparent);
+            border-radius: 2px;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .case-card {
+            background: #ffffff;
+            border-radius: 1.8rem;
+            padding: 2rem 1.8rem;
+            box-shadow: 0 12px 28px -8px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e9eef4;
+            transition: all 0.25s ease;
+            position: relative;
+            background: linear-gradient(145deg, #ffffff, #fbfdff);
+        }
+
+        /* Акцентный выделенный блок */
+        .case-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(139, 92, 246, 0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .case-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 24px 40px -16px rgba(59, 130, 246, 0.2);
+            border-color: transparent;
+        }
+
+        .case-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 0.35rem 1rem;
+            border-radius: 40px;
+            margin-bottom: 1.2rem;
+        }
+
+        .case-card h4 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.015em;
+        }
+
+        .case-placeholders {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            margin: 1.2rem 0 1rem;
+            font-size: 0.95rem;
+            color: #334155;
+        }
+
+        .placeholder-row {
+            display: flex;
+            align-items: baseline;
+            border-bottom: 1px dashed #d1d9e6;
+            padding-bottom: 0.4rem;
+        }
+
+        .placeholder-label {
+            font-weight: 600;
+            color: #475569;
+            min-width: 90px;
+            font-size: 0.9rem;
+        }
+
+        .placeholder-value {
+            color: #0f172a;
+            font-weight: 500;
+            background: rgba(203, 213, 225, 0.2);
+            padding: 0.1rem 0.5rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-style: italic;
+        }
+
+        .case-note {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 1.2rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #e9eef4;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .case-note::before {
+            content: '📌';
+            font-size: 1rem;
+        }
+
+        /* ---------- ИНСТРУМЕНТЫ (ТЕГИ) ---------- */
+        .tools-section {
+            margin-bottom: 2rem;
+        }
+
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .tool-tag {
+            background: #ffffff;
+            border: 1px solid #dbe5f0;
+            color: #1e3a8a;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.6rem 1.3rem;
+            border-radius: 40px;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            cursor: default;
+            letter-spacing: -0.01em;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+        }
+
+        .tool-tag:hover {
+            background: linear-gradient(145deg, #eff6ff, #e0eaff);
+            border-color: #3b82f6;
+            color: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 14px -6px rgba(59, 130, 246, 0.2);
+        }
+
+        .edit-hint {
+            font-size: 0.85rem;
+            color: #6b7b8f;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        /* ---------- АДАПТИВНОСТЬ ---------- */
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            .gradient-header h1 {
+                font-size: 2rem;
+            }
+
+            .gradient-header .subhead {
+                font-size: 1rem;
+                padding-left: 1rem;
+            }
+
+            .skill-card {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .skill-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .case-card {
+                padding: 1.6rem 1.3rem;
+            }
+
+            .case-card h4 {
+                font-size: 1.2rem;
+            }
+
+            .placeholder-label {
+                min-width: 70px;
+                font-size: 0.85rem;
+            }
+
+            .tool-tag {
+                font-size: 0.9rem;
+                padding: 0.5rem 1rem;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Для очень маленьких экранов */
+        @media (max-width: 380px) {
+            .placeholder-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.2rem;
+                border-bottom: none;
+                padding-bottom: 0.6rem;
+                border-left: 2px solid #e2e8f0;
+                padding-left: 0.7rem;
+            }
+
+            .placeholder-label {
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="portfolio">
+        <!-- ЗАГОЛОВОК С ГРАДИЕНТОМ И ПРОЗРАЧНОСТЬЮ -->
+        <header class="gradient-header">
+            <h1>Финансовое портфолио</h1>
+            <div class="subhead">
+                Ключевые навыки, кейсы и инструменты — с акцентом на измеримые результаты.
+            </div>
+        </header>
+
+        <!-- 6 КАРТОЧЕК НАВЫКОВ -->
+        <section aria-labelledby="skills-heading">
+            <h2 id="skills-heading" class="section-title">Ключевые навыки</h2>
+            <div class="skills-grid">
+                <!-- 1 -->
+                <article class="skill-card">
+                    <div class="skill-number">01</div>
+                    <h3>Бюджетирование и прогнозирование</h3>
+                    <p>Составление бюджета и обновление прогноза с учётом сезонности, продаж и изменений затрат.</p>
+                </article>
+                <!-- 2 -->
+                <article class="skill-card">
+                    <div class="skill-number">02</div>
+                    <h3>Управленческая отчётность</h3>
+                    <p>Подготовка ОПиУ, отчёта о движении денежных средств и управленческого баланса.</p>
+                </article>
+                <!-- 3 -->
+                <article class="skill-card">
+                    <div class="skill-number">03</div>
+                    <h3>План-факт и рентабельность</h3>
+                    <p>Разбор отклонений и оценка того, как цены, объём продаж и затраты влияют на прибыль.</p>
+                </article>
+                <!-- 4 -->
+                <article class="skill-card">
+                    <div class="skill-number">04</div>
+                    <h3>Управление ликвидностью</h3>
+                    <p>Платёжный календарь, прогноз кассовых разрывов и контроль задолженности.</p>
+                </article>
+                <!-- 5 -->
+                <article class="skill-card">
+                    <div class="skill-number">05</div>
+                    <h3>Финансовое моделирование</h3>
+                    <p>Сценарии, точка безубыточности, окупаемость и оценка инвестиционных решений.</p>
+                </article>
+                <!-- 6 -->
+                <article class="skill-card">
+                    <div class="skill-number">06</div>
+                    <h3>Внутренний контроль</h3>
+                    <p>Согласование лимитов, порядок утверждения расходов и контроль выполнения решений.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- ШАБЛОНЫ КЕЙСОВ (2 шт.) -->
+        <section class="cases-section" aria-labelledby="cases-heading">
+            <h2 id="cases-heading" class="section-title">Шаблоны кейсов</h2>
+            <div class="cases-grid">
+                <!-- Кейс 1: Снижение операционных расходов -->
+                <article class="case-card">
+                    <span class="case-badge">Кейс 1 · Шаблон</span>
+                    <h4>Снижение операционных расходов</h4>
+                    <div class="case-placeholders">
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Роль:</span>
+                            <span class="placeholder-value">[финансовый менеджер / аналитик]</span>
+                        </div>
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Период:</span>
+                            <span class="placeholder-value">[01.2024 – 06.2024]</span>
+                        </div>
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Результат:</span>
+                            <span class="placeholder-value">[−18% операционных расходов]</span>
+                        </div>
+                    </div>
+                    <div class="case-note">Подтверждённые результаты впишите сюда</div>
+                </article>
+
+                <!-- Кейс 2: Финансовая оценка нового направления -->
+                <article class="case-card">
+                    <span class="case-badge">Кейс 2 · Шаблон</span>
+                    <h4>Финансовая оценка нового направления</h4>
+                    <div class="case-placeholders">
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Роль:</span>
+                            <span class="placeholder-value">[руководитель проекта / аналитик]</span>
+                        </div>
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Период:</span>
+                            <span class="placeholder-value">[09.2024 – 12.2024]</span>
+                        </div>
+                        <div class="placeholder-row">
+                            <span class="placeholder-label">Результат:</span>
+                            <span class="placeholder-value">[NPV > 0, окупаемость 14 мес.]</span>
+                        </div>
+                    </div>
+                    <div class="case-note">Можно вписать свою роль, период и результаты</div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ИНСТРУМЕНТЫ В ВИДЕ ТЕГОВ -->
+        <section class="tools-section" aria-labelledby="tools-heading">
+            <h2 id="tools-heading" class="section-title">Инструменты</h2>
+            <div class="tools-grid">
+                <span class="tool-tag">Excel</span>
+                <span class="tool-tag">Google Sheets</span>
+                <span class="tool-tag">Power BI</span>
+                <span class="tool-tag">1С:Финансы</span>
+                <span class="tool-tag">Битрикс24</span>
+                <span class="tool-tag">Python (Pandas)</span>
+                <span class="tool-tag">SQL</span>
+                <span class="tool-tag">PlanFact</span>
+                <span class="tool-tag">Финансист</span>
+                <span class="tool-tag">Google Data Studio</span>
+            </div>
+            <p class="edit-hint">* Инструменты указаны как примеры — вы можете отредактировать список под себя.</p>
+        </section>
+    </main>
+</body>
+</html>
